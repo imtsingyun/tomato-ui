@@ -37,10 +37,8 @@ export default {
   data () {
     return {
       form: {
-        username: '',
-        password: '',
-        grant_type: 'password',
-        scope: 'server'
+        username: 'admin',
+        password: '666666'
       },
       loginFormRules: {
         username: [
@@ -58,10 +56,14 @@ export default {
     login () {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-
-        this.$http.post('/webapi/auth/oauth/token', this.form, {
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-        })
+        const params = 'username=' + this.form.username + '&password=' + this.form.password + '&grant_type=password&scope=server'
+        const res = await this.$http.post('/webapi/auth/oauth/token?' + params)
+        if (res.status !== 200) {
+          return this.$message.error('登录失败')
+        }
+        this.$message.success('登录成功')
+        window.sessionStorage.setItem('access_token', res.data.access_token)
+        this.$router.push('/home')
       })
     },
     resetLoginForm () {
