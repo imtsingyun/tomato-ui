@@ -1,6 +1,8 @@
 /* eslint-disable */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import Welcome from '../components/Welcome.vue'
+import UserList from '../components/user/UserList.vue'
 
 Vue.use(VueRouter)
 
@@ -17,7 +19,12 @@ const routes = [
   {
     path: '/home',
     name: '主页',
-    component: () => import('../components/Home.vue')
+    component: () => import('../components/Home.vue'),
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', component: Welcome },
+      { path: '/userList', component: UserList },
+    ]
   }
 ]
 

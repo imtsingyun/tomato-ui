@@ -11,7 +11,7 @@ import axios from 'axios'
 axios.defaults.headers.common.Authorization = 'Basic YWRtaW4tY2xpZW50OnRvbWF0bw=='
 axios.interceptors.request.use(config => {
   const access_token = window.sessionStorage.getItem('access_token')
-  if (access_token !== null) {
+  if (access_token !== null && config.url.indexOf('/oauth/token') === -1) {
     config.headers.Authorization = 'Bearer ' + window.sessionStorage.getItem('access_token')
   }
   return config

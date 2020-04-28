@@ -57,7 +57,7 @@ export default {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
         const params = 'username=' + this.form.username + '&password=' + this.form.password + '&grant_type=password&scope=server'
-        const res = await this.$http.post('/webapi/auth/oauth/token?' + params)
+        const res = await this.$http.post('/webapi/authserver/oauth/token?' + params)
         if (res.status !== 200) {
           return this.$message.error('登录失败')
         }
