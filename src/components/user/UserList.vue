@@ -10,7 +10,9 @@
         <div style="margin-top: 15px;">
           <el-row :gutter="20">
             <el-col :span="7">
-              <el-input placeholder="请输入内容"></el-input>
+              <el-input placeholder="请输入内容">
+                <el-button type="success" slot="append" icon="el-icon-search"></el-button>
+              </el-input>
             </el-col>
             <el-col :span="4">
               <el-button type="primary">添加用户</el-button>
