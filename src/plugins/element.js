@@ -17,7 +17,15 @@ import {
   BreadcrumbItem,
   Card,
   Col,
-  Row
+  Row,
+  Dialog,
+  DatePicker,
+  Select,
+  Option,
+  Table,
+  TableColumn,
+  Pagination,
+  Switch
 } from 'element-ui'
 
 Vue.use(Button)
@@ -37,5 +45,13 @@ Vue.use(BreadcrumbItem)
 Vue.use(Card)
 Vue.use(Col)
 Vue.use(Row)
+Vue.use(Dialog)
+Vue.use(DatePicker)
+Vue.use(Select)
+Vue.use(Option)
+Vue.use(Table)
+Vue.use(TableColumn)
+Vue.use(Pagination)
+Vue.use(Switch)
 // 挂载到 vue 的原型对象
 Vue.prototype.$message = Message
