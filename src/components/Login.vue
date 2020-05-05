@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import secretUtil from '../assets/js/secret.js'
 export default {
   data () {
     return {
@@ -56,7 +57,9 @@ export default {
     login () {
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return
-        const params = 'username=' + this.form.username + '&password=' + this.form.password + '&grant_type=password&scope=server'
+        const AESPass = secretUtil.encrypt(this.form.username, this.form.password)
+        console.log(this.form.password)
+        const params = 'username=' + this.form.username + '&password=' + AESPass + '&grant_type=password&scope=server'
         const res = await this.$http.post('/webapi/authserver/oauth/token?' + params)
         if (res.status !== 200) {
           return this.$message.error('登录失败')
