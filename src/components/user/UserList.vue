@@ -113,6 +113,8 @@
 </template>
 
 <script>
+import secretUtil from '../../assets/js/secret.js'
+
 export default {
   data () {
     return {
@@ -170,6 +172,9 @@ export default {
       this.total = res.data.data.Page.dataCount
     },
     async addUser () {
+      const AESPass = secretUtil.encrypt(this.addForm.username, this.addForm.password)
+      this.addForm.password = AESPass
+      console.log(this.addForm.password)
       const res = await this.$http.post('/webapi/userserver/innerUser/v1/', this.addForm)
       if (res.status !== 200) {
         return this.$message.error(res.data.msg)
