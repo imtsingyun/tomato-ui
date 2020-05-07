@@ -46,7 +46,7 @@
       </div>
       <div style="margin-top: 15px;">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.currPage"
-        :page-sizes="[10, 20, 30, 100]" :page-size="queryInfo.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
+        :page-sizes="[5, 20, 50, 100]" :page-size="queryInfo.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"></el-pagination>
       </div>
     </el-card>
     <!-- 添加用户 -->
@@ -59,7 +59,7 @@
           <el-input v-model="addForm.realName"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="addForm.password"></el-input>
+          <el-input v-model="addForm.password"  type="password"></el-input>
         </el-form-item>
         <el-form-item label="性别" prop="gender">
           <el-select v-model="addForm.gender" placeholder="请选择">
@@ -129,9 +129,8 @@ export default {
         }
       ],
       queryInfo: {
-        query: '',
         currPage: 1,
-        pageSize: 10
+        pageSize: 5
       },
       userList: [],
       total: 0,
@@ -175,7 +174,11 @@ export default {
       const AESPass = secretUtil.encrypt(this.addForm.username, this.addForm.password)
       this.addForm.password = AESPass
       console.log(this.addForm.password)
-      const res = await this.$http.post('/webapi/userserver/innerUser/v1/', this.addForm)
+      const res = await this.$http.post('/webapi/userserver/innerUser/v1/', this.addForm, {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+      })
       if (res.status !== 200) {
         return this.$message.error(res.data.msg)
       }
